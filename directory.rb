@@ -22,9 +22,13 @@ def print_header
   puts "-------------"
 end
 def print(students)
+  count = 0
+  until count >= students.count
   students.each_with_index do |student, index|
-    puts "#{index+1}. #{student[:name]} #{student[:cohort].capitalize} cohort" if student[:name].length < 12
-  end 
+    puts "#{index+1}. #{student[:name]} #{student[:cohort].capitalize} cohort"
+  end
+  count += students.count
+  end
 end
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
