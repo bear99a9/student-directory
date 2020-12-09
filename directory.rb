@@ -23,8 +23,8 @@ def print_header
 end
 def print(students)
   students.each_with_index do |student, index|
-    puts "#{index+1}. #{student[:name]} #{student[:cohort].capitalize} cohort" if student[:name][0].downcase == "s"
-  end
+    puts "#{index+1}. #{student[:name]} #{student[:cohort].capitalize} cohort" if student[:name].length < 12
+  end 
 end
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
