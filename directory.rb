@@ -1,17 +1,25 @@
 def input_students
-  puts "Please enter the names of the students"
+  puts "Please enter the names of the student"
   puts "To finish, jut hit return twice"
   #create an empty array
   students = []
   # get the first name
   name = gets.chomp
-  # while the name is not empty, repeat this code
-  while !name.empty? do
+  # ask for age
+  puts "Please enter the age of the student"
+  puts "To finish, jut hit return twice"
+  # get the age
+  age = gets.chomp
+  # until the name & age are empty, repeat this code
+  until name.empty? && age.empty? do
     #add the student hash to the array
-    students << {name: name, cohort: :november}
+    students << {name: name, age: age, cohort: :november}
     puts "Now we have #{students.count} students"
+    puts "Please enter the name and then age of the student"
+    puts "To finish, jut hit return twice"
     # get another name from the user
     name = gets.chomp
+    age = gets.chomp
   end
   # return the array of students
   students
@@ -21,15 +29,13 @@ def print_header
   puts "The students of Villains Academy"
   puts "-------------"
 end
+
 def print(students)
-  count = 0
-  until count >= students.count
   students.each_with_index do |student, index|
-    puts "#{index+1}. #{student[:name]} #{student[:cohort].capitalize} cohort"
-  end
-  count += students.count
+    puts "#{index+1}. #{student[:name]} #{student[:age]} #{student[:cohort].capitalize} cohort"
   end
 end
+
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
