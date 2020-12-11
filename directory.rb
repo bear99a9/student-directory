@@ -49,6 +49,7 @@ def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 # method prints out the output case statment 2
@@ -66,6 +67,8 @@ def process(selection)
       show_students
     when "3"
       save_students
+    when "4"
+      load_students
     when "9"
       exit
     else
@@ -85,7 +88,7 @@ def print_student_by_cohort
       student[:cohort]
   end
     cohorts.uniq.each do |cohort|
-      puts "#{cohort} cohort".upcase.center(@width)
+      puts "#{cohort} cohort:".upcase.center(@width)
       @students.each do |student|
         puts "#{student[:name]}, #{student[:age]}".center(@width) if student[:cohort] == cohort
       end
@@ -99,7 +102,7 @@ def print_student_by_index
 end
 # method for printing footer
 def print_footer
-  puts "The list is empty as no data was added by user!".center(@width) if @students.empty?
+  puts "The list is empty as no data was added by user!\nIf you have saved students data previously enter '4' to retrieve them." if @students.empty?
   puts "Overall, we have #{@students.count} great student#{'s' if @students.count > 1}!".center(@width) if !@students.empty?
 end
 # a method that saves student data to a .csv file
@@ -111,6 +114,15 @@ def save_students
     student_data = [student[:name], student[:age], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
+  end
+  file.close
+end
+# a method that loads the .csv file
+def load_students
+  file = File.open("students.csv", "r")
+  file.readlines.each do |line|
+  name, age, cohort = line.chomp.split(',')
+    @students << {name: name, age: age, cohort: cohort.to_sym}
   end
   file.close
 end
