@@ -48,6 +48,7 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 # method prints out the output case statment 2
@@ -63,6 +64,8 @@ def process(selection)
       input_students("No name added", "No age added", "Unknown")
     when "2"
       show_students
+    when "3"
+      save_students
     when "9"
       exit
     else
@@ -98,6 +101,18 @@ end
 def print_footer
   puts "The list is empty as no data was added by user!".center(@width) if @students.empty?
   puts "Overall, we have #{@students.count} great student#{'s' if @students.count > 1}!".center(@width) if !@students.empty?
+end
+# a method that saves student data to a .csv file
+def save_students
+  # open file for writing
+  file = File.open("students.csv", "w")
+  # iterate over the array of students
+  @students.each do |student|
+    student_data = [student[:name], student[:age], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  file.close
 end
 
 interactive_menu
