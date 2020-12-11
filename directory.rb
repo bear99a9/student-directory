@@ -37,9 +37,11 @@ def input_students(default_name, default_age, default_cohort)
   students
 end
 # method for printing header
-def print_header
-  puts "The students of Villains Academy".center(120)
-  puts "-------------".center(120)
+def print_header(students)
+  if !students.empty?
+    puts "The students of Villains Academy".center(120)
+    puts "-------------".center(120)
+  end
 end
 # method for printing students buy cohort
 def print_student_by_cohort(students)
@@ -61,11 +63,12 @@ def print_student_by_index(students)
 end
 # method for printing footer
 def print_footer(students)
-     puts "Overall, we have #{students.count} great student#{'s' if students.count > 1}!".center(120)
+  puts "The list is empty as no data was added by user!".center(120) if students.empty?
+  puts "Overall, we have #{students.count} great student#{'s' if students.count > 1}!".center(120) if !students.empty?
 end
 # variable for students info with default parameters entered
 students = input_students("No name added", "No age added", "Unknown")
 # nothing happens until we call the methods
-print_header
+print_header(students)
 print_student_by_cohort(students)
 print_footer(students)
