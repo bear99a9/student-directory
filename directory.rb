@@ -31,29 +31,41 @@ def input_students(default_name, default_age, default_cohort)
     #add the student hash to the array
     students << {name: name, age: age, cohort: student_cohort.to_sym}
     # prints out the student total
-    puts "Now we have #{students.count} students!".center(120)
+    puts "Now we have #{students.count} student#{'s' if students.count > 1}!".center(120)
     end
   # return the array of students
   students
 end
-
+# method for printing header
 def print_header
   puts "The students of Villains Academy".center(120)
   puts "-------------".center(120)
 end
-
-def print(students)
+# method for printing students buy cohort
+def print_student_by_cohort(students)
+  cohorts = students.map do |student|
+      student[:cohort]
+  end
+    cohorts.uniq.each do |cohort|
+      puts "#{cohort} cohort".upcase.center(120)
+      students.each do |student|
+        puts "#{student[:name]}, #{student[:age]}" if student[:cohort] == cohort
+      end
+    end
+end
+# old method for printing students by index added
+def print_student_by_index(students)
   students.each_with_index do |student, index|
     puts "#{index+1}. #{student[:name]}, #{student[:age]}, #{student[:cohort]} cohort.".center(120)
   end
 end
-
+# method for printing footer
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students!".center(120)
+     puts "Overall, we have #{students.count} great student#{'s' if students.count > 1}!".center(120)
 end
-
-students = input_students("No name added", "No age added", "Empty")
+# variable for students info with default parameters entered 
+students = input_students("No name added", "No age added", "Unknown")
 # nothing happens until we call the methods
 print_header
-print(students)
+print_student_by_cohort(students)
 print_footer(students)
