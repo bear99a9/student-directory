@@ -9,7 +9,7 @@ def input_students(default_name, default_age, default_cohort)
     puts "Enter 'typo' to re-enter the students data".center(@width)
     puts "TO FINISH INPUTTING STUDENT DATA, ENTER 'stop'".center(@width)
     # get the first name
-    name = gets.strip
+    name = STDIN.gets.chomp
     name = default_name if name.empty?
     next if name == "typo"
     break if name == "stop"
@@ -17,7 +17,7 @@ def input_students(default_name, default_age, default_cohort)
     puts "Please enter the age of the student".center(@width)
     puts "Enter 'typo' to re-enter the students data".center(@width)
     # get the age
-    age = gets.strip
+    age = STDIN.gets.chomp
     age = default_age if age.empty?
     next if age == "typo"
     break if age == "stop"
@@ -25,7 +25,7 @@ def input_students(default_name, default_age, default_cohort)
     puts "Please enter the cohort of the student".center(@width)
     puts "Enter 'typo' to re-enter the students data".center(@width)
     # get the cohort
-    student_cohort = gets.strip
+    student_cohort = STDIN.gets.chomp
     student_cohort = default_cohort if student_cohort.empty?
     next if student_cohort == "typo"
     break if student_cohort == "stop"
@@ -41,7 +41,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 # method to print out the menus options
@@ -118,7 +118,7 @@ def save_students
   file.close
 end
 # a method that loads the .csv file
-def load_students
+def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
   name, age, cohort = line.chomp.split(',')
@@ -127,4 +127,17 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first # first arguement from the command line
+  return if filename.nil? # get out of the method if it isn't given
+  if File.exist?(filename) # if it exists
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry #{filename} does not exist."
+    exit # quit the program
+  end
+end
+
+try_load_students
 interactive_menu
