@@ -1,3 +1,12 @@
+def interactive_menu
+  loop do
+  # 1. print the menu and ask the user what to do
+  # 2. read the input and save it into a variable
+  # 3. do what the user has asked
+  # 4. repeat from step 1
+  end
+end
+
 def input_students(default_name, default_age, default_cohort)
   # create an empty array
   students = []
