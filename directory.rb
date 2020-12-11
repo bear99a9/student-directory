@@ -8,7 +8,7 @@ def input_students(default_name, default_age, default_cohort)
     puts "Enter 'typo' to re-enter the students data".center(120)
     puts "TO FINISH AT ANY TIME, ENTER 'exit'".center(120)
     # get the first name
-    name = gets.chomp
+    name = gets.strip
     name = default_name if name.empty?
     next if name == "typo"
     break if name == "exit"
@@ -16,7 +16,7 @@ def input_students(default_name, default_age, default_cohort)
     puts "Please enter the age of the student".center(120)
     puts "Enter 'typo' to re-enter the students data".center(120)
     # get the age
-    age = gets.chomp
+    age = gets.strip
     age = default_age if age.empty?
     next if age == "typo"
     break if age == "exit"
@@ -24,7 +24,7 @@ def input_students(default_name, default_age, default_cohort)
     puts "Please enter the cohort of the student".center(120)
     puts "Enter 'typo' to re-enter the students data".center(120)
     # get the cohort
-    student_cohort = gets.chomp
+    student_cohort = gets.strip
     student_cohort = default_cohort if student_cohort.empty?
     next if student_cohort == "typo"
     break if student_cohort == "exit"
@@ -63,7 +63,7 @@ end
 def print_footer(students)
      puts "Overall, we have #{students.count} great student#{'s' if students.count > 1}!".center(120)
 end
-# variable for students info with default parameters entered 
+# variable for students info with default parameters entered
 students = input_students("No name added", "No age added", "Unknown")
 # nothing happens until we call the methods
 print_header
