@@ -25,12 +25,12 @@ def input_students(default_name, default_age, default_cohort)
     puts "Please enter the cohort of the student".center(@width)
     puts "Enter 'typo' to re-enter the students data".center(@width)
     # get the cohort
-    student_cohort = STDIN.gets.chomp
-    student_cohort = default_cohort if student_cohort.empty?
-    next if student_cohort == "typo"
-    break if student_cohort == "stop"
+    cohort = STDIN.gets.chomp
+    cohort = default_cohort if cohort.empty?
+    next if cohort == "typo"
+    break if cohort == "stop"
     #add the student hash to the array
-    @students << {name: name, age: age, cohort: student_cohort.to_sym}
+    add_students(name, age, cohort)
     # prints out the student total
     puts "Now we have #{@students.count} student#{'s' if @students.count > 1}!".center(@width)
     end
@@ -122,7 +122,7 @@ def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
   name, age, cohort = line.chomp.split(',')
-    @students << {name: name, age: age, cohort: cohort.to_sym}
+    add_students(name, age, cohort)
   end
   file.close
 end
@@ -137,6 +137,10 @@ def try_load_students
     puts "Sorry #{filename} does not exist."
     exit # quit the program
   end
+end
+
+def add_students(name, age, cohort)
+  @students << {name: name, age: age, cohort: cohort.to_sym}
 end
 
 try_load_students
